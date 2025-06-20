@@ -1,5 +1,4 @@
 import mongoose, { Document, Schema, Model } from "mongoose";
-import bcrypt from "bcrypt";
 
 // Interface for User Document
 export interface IHobby extends Document {
