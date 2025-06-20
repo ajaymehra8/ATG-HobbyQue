@@ -9,4 +9,10 @@ export interface HobbyType{
     user:UserType,
     name:string,
     createdAt?:Date
+};
+export interface SponserType{
+    _id:number,
+    name:string,
+    link:string,
+    image:string,
 }
