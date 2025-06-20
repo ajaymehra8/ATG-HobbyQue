@@ -5,10 +5,9 @@ import { Search } from "lucide-react";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
 interface propType {
-  users: UserType[] | null;
   setUsers: React.Dispatch<React.SetStateAction<UserType[] | null>>;
 }
-const SearchBar = ({ users, setUsers }: propType) => {
+const SearchBar = ({ setUsers }: propType) => {
   const [query, setQuery] = useState("");
   const handleSubmit = async() => {
     try {

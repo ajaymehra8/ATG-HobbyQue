@@ -26,8 +26,8 @@ const Users = () => {
     fetchUsers();
   }, []);
   return (
-    <div className="flex flex-col gap-5 md:w-[40%] sm:w-full min-h-[80vh]">
-      <SearchBar users={users} setUsers={setUsers} />
+    <div className="flex flex-col gap-5 md:w-[40%] min-w-[300px] sm:w-full min-h-[80vh]">
+      <SearchBar setUsers={setUsers} />
       <div className="flex flex-col gap-3 mt-4 px-0">
       {users && users.length > 0 && users.map((u) => <UserCard user={u} key={u._id}/>)}
       </div>

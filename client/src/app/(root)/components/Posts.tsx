@@ -31,7 +31,7 @@ const Posts = () => {
     fetchHobbies();
   }, []);
   return (
-    <div className="flex flex-col gap-5 md:w-[40%] sm:w-full min-h-[80vh]">
+    <div className="flex flex-col gap-5 md:w-[40%] min-w-[300px] sm:w-full min-h-[80vh]">
       {!loading ? (
         <>
           <CreateHobby openModal={openModal} setOpenModal={setOpenModal} />

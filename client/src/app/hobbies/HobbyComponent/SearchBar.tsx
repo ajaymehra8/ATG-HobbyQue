@@ -1,21 +1,20 @@
 import { UserType } from "@/types";
-import { getAllUsers, getUsersByHobby } from "@/utils/api";
+import { getUsersByHobby } from "@/utils/api";
 import { AxiosError } from "axios";
 import { Search } from "lucide-react";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
 interface propType {
-  users: UserType[] | null;
   setUsers: React.Dispatch<React.SetStateAction<UserType[] | null>>;
 }
-const SearchBar = ({ users, setUsers }: propType) => {
+const SearchBar = ({ setUsers }: propType) => {
   const [query, setQuery] = useState("");
-  const handleSubmit = async() => {
+  const handleSubmit = async () => {
     try {
-        const {data}=await getUsersByHobby(query);
-        if(data.success){
-            setUsers(data.users);
-        }
+      const { data } = await getUsersByHobby(query);
+      if (data.success) {
+        setUsers(data.users);
+      }
     } catch (err) {
       if (err instanceof AxiosError)
         toast.error(
@@ -25,7 +24,7 @@ const SearchBar = ({ users, setUsers }: propType) => {
     setQuery("");
   };
   return (
-    <div className="w-full min-h-[10vh] bg-[#fff] flex justify-center items-center px-4 gap-3">
+    <div className="w-full min-h-[10vh] bg-[#fff] flex justify-center items-center px-4 gap-3 rounded-2xl">
       <input
         type="text"
         placeholder="Search user by hobby"

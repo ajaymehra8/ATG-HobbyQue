@@ -2,9 +2,8 @@ import React from 'react'
 
 const Sponsered = () => {
   return (
-    <div className='border-2 sm:none  md:w-[25%] h-[87vh] w-[25%] fixed right-5'>
-      
-    </div>
+      <div className="hidden md:fixed md:block w-[25%] h-[87vh] overflow-y-auto right-5 border-2 border-gray-500">
+</div>
   )
 }
 

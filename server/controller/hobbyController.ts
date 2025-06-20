@@ -17,12 +17,12 @@ export const createHobby = catchAsync(
       next(new AppError(400, "Provide a hobby name"));
       return;
     }
-    let hobby:IHobby|null = await Hobby.create({ user: user._id, name });
+    let hobby: IHobby | null = await Hobby.create({ user: user._id, name });
     if (!hobby) {
       next(new AppError(500, "Problem in creating hobby"));
       return;
     }
-    hobby=await Hobby.findById(hobby._id).populate("user");
+    hobby = await Hobby.findById(hobby._id).populate("user");
     res.status(200).json({
       success: true,
       message: "Hobby created successfully",
@@ -100,7 +100,7 @@ export const getAllHobbies = catchAsync(
       .limit(13)
       .populate("user")
       .sort({ createdAt: -1 });
-      console.log(hobbies);
+    console.log(hobbies);
     res.status(200).json({
       success: true,
       message: "Hobbies fetched successfully",
@@ -121,15 +121,15 @@ export const getUsersByHobbies = catchAsync(
     if (!query || typeof query !== "string") {
       return next(new AppError(400, "Query is required"));
     }
-console.log(query);
+    console.log(query);
     // Step 1: Find matching hobbies by name
     const matchingHobbies = await Hobby.find({
       name: { $regex: query, $options: "i" },
     });
-
+    console.log(matchingHobbies);
     if (matchingHobbies.length === 0) {
-      return res.status(200).json({
-        success: true,
+      return res.status(404).json({
+        success: false,
         message: "No users found with that hobby",
         users: [],
       });
@@ -150,7 +150,9 @@ console.log(query);
     userIds.delete(user._id.toString());
 
     // Step 4: Fetch users
-    const users = await User.find({ _id: { $in: Array.from(userIds) } }).populate("hobbies");
+    const users = await User.find({
+      _id: { $in: Array.from(userIds) },
+    }).populate("hobbies");
 
     res.status(200).json({
       success: true,
@@ -159,4 +161,3 @@ console.log(query);
     });
   }
 );
-
