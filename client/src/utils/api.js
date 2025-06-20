@@ -52,31 +52,14 @@ export const login = (email, password) =>
 export const googleLogin = (code) =>
   API.get(`/api/v1/auth/google-login?code=${code}`);
 
-// snippet apis
-export const shareSnippet = (obj) =>
-  API.post(`/api/v1/snippet/share-snippet`, obj);
-export const getSnippets = () => API.get(`/api/v1/snippet`);
-export const getSnippet = (snippetId) =>
-  API.get(`/api/v1/snippet?snippetId=${snippetId}`);
-export const deleteSnippet = (snippetId) =>
-  API.delete(`/api/v1/snippet?snippetId=${snippetId}`);
-export const starSnippet = (snippetId) =>
-  API.post(`/api/v1/snippet/star-snippet`, { snippetId });
+//user apis
+export const getUserHobbies = () => API.get(`/api/v1/user/user-hobbies`);
 
-// user profile apis
-export const getUserStats = () => API.get(`/api/v1/user/user-stats`);
-export const getUserSnippets = () => API.get(`/api/v1/user/user-snippets`);
-export const getUserStarredSnippets = () =>
-  API.get(`/api/v1/user/starred-snippets`);
 
-// snippet comment apis
-
-export const getSnippetComments = (snippetId) =>
-  API.get(`/api/v1/comment?snippetId=${snippetId}`);
-export const doComment=(snippetId,content)=>
-  API.post(`/api/v1/comment`,{snippetId,content});
-export const deleteSnippetComment = (commentId) =>
-  API.delete(`/api/v1/comment/${commentId}`);
-
+// hobby api
+export const createHobby = (name) => API.post(`/api/v1/hobby`, { name });
+export const updateHobby = (name, hobbyId) =>
+  API.patch(`/api/v1/hobby`, { name, hobbyId });
+export const deleteHobby = (hobbyId) => API.delete(`/api/v1/hobby/${hobbyId}`);
 
 export default API;
