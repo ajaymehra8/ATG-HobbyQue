@@ -45,7 +45,7 @@ const Posts = () => {
         {!loading ? (
           hobbies &&
           hobbies?.length > 0 &&
-          hobbies.map((hobby) => <PostCard key={hobby._id} hobby={hobby} />)
+          hobbies.map((hobby) => <PostCard key={hobby._id} hobby={hobby} setHobbies={setHobbies}/>)
         ) : (
           <Loader2 size={50} className="self-center animate-spin" />
         )}
