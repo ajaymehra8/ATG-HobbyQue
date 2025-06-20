@@ -1,4 +1,5 @@
 import Hobby, { IHobby } from "../models/hobbyModel";
+import User from "../models/userModel";
 import catchAsync from "../utils/catchAsync";
 import AppError from "../utils/AppError";
 import { MyRequest } from "../types/local";
@@ -107,3 +108,55 @@ export const getAllHobbies = catchAsync(
     });
   }
 );
+
+export const getUsersByHobbies = catchAsync(
+  async (req: MyRequest, res: Response, next: NextFunction) => {
+    const user = req.user;
+    const { query } = req.query;
+
+    if (!user || !user._id) {
+      return next(new AppError(401, "You are unauthorized"));
+    }
+
+    if (!query || typeof query !== "string") {
+      return next(new AppError(400, "Query is required"));
+    }
+console.log(query);
+    // Step 1: Find matching hobbies by name
+    const matchingHobbies = await Hobby.find({
+      name: { $regex: query, $options: "i" },
+    });
+
+    if (matchingHobbies.length === 0) {
+      return res.status(200).json({
+        success: true,
+        message: "No users found with that hobby",
+        users: [],
+      });
+    }
+
+    // Step 2: Extract unique user IDs from hobbies
+    const userIds = new Set<string>();
+    matchingHobbies.forEach((hobby) => {
+      // assuming hobby.user is a single user or an array (adjust as needed)
+      if (Array.isArray(hobby.user)) {
+        hobby.user.forEach((u: any) => userIds.add(u.toString()));
+      } else {
+        userIds.add(hobby.user.toString());
+      }
+    });
+
+    // Step 3: Remove current user from result
+    userIds.delete(user._id.toString());
+
+    // Step 4: Fetch users
+    const users = await User.find({ _id: { $in: Array.from(userIds) } }).populate("hobbies");
+
+    res.status(200).json({
+      success: true,
+      message: "Users fetched successfully",
+      users,
+    });
+  }
+);
+

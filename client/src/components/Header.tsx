@@ -9,15 +9,17 @@ const Header = () => {
   return (
     <div className="w-screen flex justify-between items-center h-[60px] px-10 bg-[#fff] fixed z-50">
       <h1 className="text-3xl font-bold cursor-pointer">
+        <Link href={'/'}>
         <span className="text-[#9810FA]">H</span>obby
         <span className="text-[#9810FA]">Q</span>ue
+        </Link>
       </h1>
       <ul className="flex list-none gap-10 items-center">
         <li
           className="transition duration-500 ease-in-out hover:bg-gray-200 px-5 py-2 rounded-xl cursor-pointer"
           title="All users"
         >
-          <Link href="/">
+          <Link href="/users">
             <Users />
           </Link>
         </li>

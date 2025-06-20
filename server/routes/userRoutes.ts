@@ -6,6 +6,8 @@ import * as userController from "../controller/userController";
 const router = express.Router();
 
 router.use(authController.isProtect);
+
+router.get('/',userController.getAllUsers);
 router.get('/user-hobbies',userController.getUserHobbies);
 
 
