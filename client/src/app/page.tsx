@@ -4,9 +4,9 @@ import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useGlobalState } from "@/context/GlobalProvider"; // example global auth
 import Header from "@/components/Header";
-import Dummy from "./(root)/components/Dummy";
-import Sponsered from "./(root)/components/Sponsered";
 import Users from "./(root)/components/Users";
+import Sponsered from "./(root)/components/Sponsered";
+import Posts from "./(root)/components/Posts";
 
 const Page = () => {
   const router = useRouter();
@@ -23,9 +23,9 @@ const Page = () => {
   return (
     <>
       <Header />
-      <div className="bg-[#f0f4f5] min-h-screen pt-[80px] flex p-10 gap-15 items-start justify-center border-2">
-        <Dummy />
+      <div className="bg-[#f0f4f5] min-h-screen pt-[80px] flex p-10 gap-15 items-start justify-center">
         <Users />
+        <Posts />
         <Sponsered />
       </div>
     </>

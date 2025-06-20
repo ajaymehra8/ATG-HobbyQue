@@ -1,23 +1,16 @@
 "use client";
 import { useGlobalState } from "@/context/GlobalProvider";
-import { createHobby } from "@/utils/api";
-import { AxiosError } from "axios";
-import React, { useState } from "react";
-import toast from "react-hot-toast";
 
-const CreateHobby = () => {
+import React from "react";
+
+interface propType {
+  openModal: boolean;
+  setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const CreateHobby = ({ openModal, setOpenModal }: propType) => {
   const { user } = useGlobalState();
-  const [name, setName] = useState("");
-  const addHobby = async () => {
-    try {
-      const { data } = await createHobby(name);
-      if (data.success) {
-        toast.success(data.message);
-      }
-    } catch (err) {
-      if (err instanceof AxiosError) toast.error(err.response?.data.message);
-    }
-  };
+  console.log(openModal);
   //  const template = async () => {
   //   try {
 
@@ -26,7 +19,7 @@ const CreateHobby = () => {
   //   }
   // };
   return (
-    <div className="w-full h-[15vh] border-2 p-5 bg-[#fff] flex gap-5 items-center justify-start">
+    <div className="w-full h-[15vh] rounded-2xl p-5 bg-[#fff] flex gap-5 items-center justify-start">
       <img
         src={user?.image}
         alt="user-img"
@@ -34,9 +27,12 @@ const CreateHobby = () => {
       />
       <input
         value={`Add new hobby`}
-        className="cursor-pointer bg-[#e2e6e7] w-full h-10 px-5 rounded-full"
-        disabled
-        onClick={addHobby}
+        className="cursor-pointer bg-[#e2e6e7] w-full h-10 px-5 rounded-full focus:border-hidden"
+        onClick={() => {
+          console.log("hello");
+          setOpenModal(true);
+        }}
+        readOnly
       />
     </div>
   );

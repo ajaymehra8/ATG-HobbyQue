@@ -8,7 +8,8 @@ router.use(authController.isProtect);
 router
   .route("/")
   .post(hobbyController.createHobby)
-  .patch(hobbyController.updateHobby);
+  .patch(hobbyController.updateHobby)
+  .get(hobbyController.getAllHobbies);
 router.delete("/:hobby", hobbyController.deleteHobby);
 
 export default router;

@@ -16,11 +16,12 @@ export const createHobby = catchAsync(
       next(new AppError(400, "Provide a hobby name"));
       return;
     }
-    const hobby = await Hobby.create({ user: user._id, name });
+    let hobby:IHobby|null = await Hobby.create({ user: user._id, name });
     if (!hobby) {
       next(new AppError(500, "Problem in creating hobby"));
       return;
     }
+    hobby=await Hobby.findById(hobby._id).populate("user");
     res.status(200).json({
       success: true,
       message: "Hobby created successfully",
@@ -81,7 +82,28 @@ export const updateHobby = catchAsync(
     res.status(200).json({
       success: true,
       message: "Hobby created successfully",
-      updateHobby:hobby,
+      updateHobby: hobby,
+    });
+  }
+);
+
+export const getAllHobbies = catchAsync(
+  async (req: MyRequest, res: Response, next: NextFunction) => {
+    const user = req.user;
+    console.log("working");
+    if (!user || !user._id) {
+      next(new AppError(401, "You are unauthorized"));
+      return;
+    }
+    const hobbies = await Hobby.find({})
+      .limit(13)
+      .populate("user")
+      .sort({ createdAt: -1 });
+      console.log(hobbies);
+    res.status(200).json({
+      success: true,
+      message: "Hobbies fetched successfully",
+      hobbies,
     });
   }
 );

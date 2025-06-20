@@ -49,8 +49,7 @@ export const signup = (email, password, name) =>
   API.post(`/api/v1/auth/signup`, { email, password, name });
 export const login = (email, password) =>
   API.post(`/api/v1/auth/login`, { email, password });
-export const googleLogin = (code) =>
-  API.get(`/api/v1/auth/google-login?code=${code}`);
+
 
 //user apis
 export const getUserHobbies = () => API.get(`/api/v1/user/user-hobbies`);
@@ -61,5 +60,6 @@ export const createHobby = (name) => API.post(`/api/v1/hobby`, { name });
 export const updateHobby = (name, hobbyId) =>
   API.patch(`/api/v1/hobby`, { name, hobbyId });
 export const deleteHobby = (hobbyId) => API.delete(`/api/v1/hobby/${hobbyId}`);
+export const getAllHobbies = () => API.get(`/api/v1/hobby`);
 
 export default API;

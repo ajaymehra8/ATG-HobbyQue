@@ -7,7 +7,7 @@ import Link from "next/link";
 const Header = () => {
   const { user } = useGlobalState();
   return (
-    <div className="w-screen flex justify-between items-center h-[60px] px-10 bg-[#fff] fixed">
+    <div className="w-screen flex justify-between items-center h-[60px] px-10 bg-[#fff] fixed z-50">
       <h1 className="text-3xl font-bold cursor-pointer">
         <span className="text-[#9810FA]">H</span>obby
         <span className="text-[#9810FA]">Q</span>ue
