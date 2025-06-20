@@ -64,7 +64,7 @@ if(user){
   };
 
   return (
-    <div className="flex w-screen h-screen items-center justify-center bg-white  pl-10">
+    <div className="flex w-screen h-screen items-center justify-center bg-white  md:pl-10 px-5">
       <div className="w-full lg:w-[30%] max-w-md min-h-[300px] bg-[#EEEEEE] p-6 rounded-lg flex flex-col items-start gap-4 border-1">
         <h1 className="text-2xl font-bold cursor-pointer">
           <span className="text-[#9810FA]">H</span>obbyQue
