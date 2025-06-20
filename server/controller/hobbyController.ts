@@ -128,8 +128,8 @@ export const getUsersByHobbies = catchAsync(
     });
     console.log(matchingHobbies);
     if (matchingHobbies.length === 0) {
-      return res.status(404).json({
-        success: false,
+      return res.status(100).json({
+        success: true,
         message: "No users found with that hobby",
         users: [],
       });

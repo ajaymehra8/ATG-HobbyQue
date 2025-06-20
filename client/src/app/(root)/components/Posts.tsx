@@ -7,6 +7,7 @@ import { AxiosError } from "axios";
 import toast from "react-hot-toast";
 import { getAllHobbies } from "@/utils/api";
 import { HobbyType } from "@/types";
+import { Loader2 } from "lucide-react";
 
 const Posts = () => {
   const [openModal, setOpenModal] = useState<boolean>(false);
@@ -32,19 +33,23 @@ const Posts = () => {
   }, []);
   return (
     <div className="flex flex-col gap-5 lg:w-[40%] min-w-[300px] md:w-full min-h-[80vh]">
-      {!loading ? (
-        <>
-          <CreateHobby openModal={openModal} setOpenModal={setOpenModal} />
-          {openModal && (
-            <PostHobbyModal openModal={openModal} setOpenModal={setOpenModal} setHobbies={setHobbies}/>
-          )}
-          {hobbies &&
-            hobbies?.length > 0 &&
-            hobbies.map((hobby) => <PostCard key={hobby._id} hobby={hobby} />)}
-        </>
-      ) : (
-        <h1>Loading...</h1>
-      )}
+      <>
+        <CreateHobby openModal={openModal} setOpenModal={setOpenModal} />
+        {openModal && (
+          <PostHobbyModal
+            openModal={openModal}
+            setOpenModal={setOpenModal}
+            setHobbies={setHobbies}
+          />
+        )}
+        {!loading ? (
+          hobbies &&
+          hobbies?.length > 0 &&
+          hobbies.map((hobby) => <PostCard key={hobby._id} hobby={hobby} />)
+        ) : (
+          <Loader2 size={50} className="self-center animate-spin" />
+        )}
+      </>
     </div>
   );
 };

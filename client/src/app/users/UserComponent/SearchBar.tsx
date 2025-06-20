@@ -6,10 +6,14 @@ import React, { useState } from "react";
 import toast from "react-hot-toast";
 interface propType {
   setUsers: React.Dispatch<React.SetStateAction<UserType[] | null>>;
+    setLoading: React.Dispatch<React.SetStateAction<boolean>>;
+
+  
 }
-const SearchBar = ({ setUsers }: propType) => {
+const SearchBar = ({ setUsers,setLoading }: propType) => {
   const [query, setQuery] = useState("");
   const handleSubmit = async() => {
+    setLoading(true);
     try {
         const {data}=await getAllUsers(query);
         if(data.success){
@@ -21,6 +25,7 @@ const SearchBar = ({ setUsers }: propType) => {
           err.response?.data.message || "Some issue in searching user"
         );
     }
+    setLoading(false);
     setQuery("");
   };
   return (

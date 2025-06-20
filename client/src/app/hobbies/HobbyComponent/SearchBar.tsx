@@ -6,10 +6,12 @@ import React, { useState } from "react";
 import toast from "react-hot-toast";
 interface propType {
   setUsers: React.Dispatch<React.SetStateAction<UserType[] | null>>;
+  setLoading: React.Dispatch<React.SetStateAction<boolean>>;
 }
-const SearchBar = ({ setUsers }: propType) => {
+const SearchBar = ({ setUsers,setLoading }: propType) => {
   const [query, setQuery] = useState("");
   const handleSubmit = async () => {
+    setLoading(true);
     try {
       const { data } = await getUsersByHobby(query);
       if (data.success) {
@@ -20,8 +22,10 @@ const SearchBar = ({ setUsers }: propType) => {
         toast.error(
           err.response?.data.message || "Some issue in searching user"
         );
+    } finally {
+      setLoading(false);
+      setQuery("");
     }
-    setQuery("");
   };
   return (
     <div className="w-full min-h-[10vh] bg-[#fff] flex justify-center items-center px-4 gap-3 rounded-2xl">
@@ -40,6 +44,7 @@ const SearchBar = ({ setUsers }: propType) => {
         className="cursor-pointer bg-[#e2e6e7] w-full h-10 px-5 rounded-full focus:border-hidden focus:outline-0"
       />
       <Search className="cursor-pointer" onClick={handleSubmit} />
+      
     </div>
   );
 };

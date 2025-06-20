@@ -11,12 +11,10 @@ interface User {
 
 class Email {
   private to: string;
-  private firstName?: string;
   private from: string;
 
   constructor(user: User) {
     this.to = user.email;
-    this.firstName = user.name ? user.name.split(" ")[0] : undefined;
     this.from = process.env.EMAIL_USERNAME as string;
 
     if (!this.from) {
@@ -54,7 +52,7 @@ class Email {
   }
 
   public async sendOtp(otp: string): Promise<void> {
-    const message = `<h4>Hi ${this.firstName}, Your OTP for email verification is <b>${otp}</b></h4>`;
+    const message = `<h4>Hi, Your OTP for email verification is <b>${otp}</b></h4>`;
     await this.send("Your OTP for email verification (Valid for 5 minutes)", message);
   }
 }
